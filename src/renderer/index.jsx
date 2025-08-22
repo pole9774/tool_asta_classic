@@ -80,8 +80,8 @@ function App() {
     };
 
     return (
-        <div className="container py-4">
-            <div className="d-flex justify-content-center mb-4 gap-2">
+        <div className="container py-2">
+            <div className="d-flex justify-content-center mb-2 gap-2">
                 {CATEGORIES.map(({ key, label }) => (
                     <button
                         key={key}
@@ -93,16 +93,16 @@ function App() {
                 ))}
             </div>
             <div className="row justify-content-center">
-                <div className="col-12 col-md-10 col-lg-8">
+                <div className="col-12 col-md-12 col-lg-12">
                     <div className="card shadow-sm h-100">
-                        <div className="card-header bg-primary text-white text-center">
+                        {/*<div className="card-header bg-primary text-white text-center">
                             <h5 className="mb-0">{page}</h5>
-                        </div>
-                        <div className="card-body" style={{ minHeight: 400, background: '#26304bff' }}>
+                        </div>*/}
+                        <div className="card-body p-1" style={{ minHeight: 400, background: '#26304bff' }}>
                             {objects.filter(o => o.category === page).sort((a, b) => a.position - b.position).map((obj, idx, arr) => (
                                 <div
                                     key={obj.id}
-                                    className={`card mb-2 ${dragged && dragged.id === obj.id ? 'border-primary bg-light' : ''}`}
+                                    className={`card mb-1 ${dragged && dragged.id === obj.id ? 'border-primary bg-light' : ''}`}
                                     draggable
                                     onDragStart={() => handleDragStart(obj)}
                                     onDragEnd={handleDragEnd}
@@ -110,27 +110,29 @@ function App() {
                                     onDrop={() => handleDrop(page, idx)}
                                     style={{ cursor: 'grab', background: (Math.floor(obj.position / 3) + 1) % 2 === 0 ? (!obj.taken ? '#9f8c6dff' : '#8383832d') : (!obj.taken ? '#5a7c5cff' : '#8383832d') }}
                                 >
-                                    <div className="card-body py-2 px-3">
+                                    <div className="card-body py-1 px-2">
                                         <div className="fw-bold">{Math.floor(obj.position / 3) + 1} - {obj.name}</div>
                                         {editId === obj.id ? (
-                                            <div className="d-flex align-items-center gap-2">
-                                                <input
-                                                    type="text"
+                                            <div className="d-flex align-items-center gap-2 w-100">
+                                                <textarea
                                                     className="form-control form-control-sm"
                                                     value={editValue}
                                                     onChange={e => setEditValue(e.target.value)}
                                                     autoFocus
+                                                    rows={3}
+                                                    style={{ resize: 'vertical', minWidth: 0 }}
                                                 />
-                                                <button className="btn btn-success btn-sm" onClick={() => handleEditSave(obj)} title="Save"><i className="bi bi-check" /></button>
-                                                <button className="btn btn-secondary btn-sm" onClick={handleEditCancel} title="Cancel"><i className="bi bi-x" /></button>
+                                                <button className="btn btn-success btn-sm" onClick={() => handleEditSave(obj)} title="Save">Save</button>
+                                                <button className="btn btn-secondary btn-sm" onClick={handleEditCancel} title="Cancel">Canc</button>
                                             </div>
                                         ) : (
-                                            <div className="text-muted small d-flex align-items-center gap-2">
-                                                {obj.data || <i>no data</i>}
+                                            <div className="text-muted small d-flex align-items-center gap-2 w-100">
+                                                <div style={{ whiteSpace: 'pre-line', flex: 1 }}>
+                                                    {obj.data || <i>no data</i>}
+                                                </div>
                                                 <button className="btn btn-sm btn-outline-info ms-2" onClick={() => handleEdit(obj)} title="Edit">Edit</button>
-                                                <span className="ms-2">|</span>
-                                                <button className={`btn btn-sm ${obj.taken ? 'btn-success' : 'btn-outline-secondary'}`} onClick={() => handleToggleTaken(obj)} title="Toggle taken">
-                                                    {obj.taken ? 'Taken' : 'Not taken'}
+                                                <button className={`btn btn-sm ${obj.taken ? 'btn-outline-primary' : 'btn-outline-secondary'}`} onClick={() => handleToggleTaken(obj)} title="Toggle taken">
+                                                    {obj.taken ? 'Canc' : 'Take'}
                                                 </button>
                                             </div>
                                         )}
