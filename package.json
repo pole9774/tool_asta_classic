@@ -1,0 +1,37 @@
+{
+  "name": "fantalab_fake",
+  "version": "1.0.0",
+  "description": "This project is a local desktop application using Electron for the shell, React for the frontend, and SQLite for persistent local storage. It displays a large list of objects, each with a category (P, D, C, or A), a name, and other numerical or textual data (nullable). Objects are visualized as cards in four lists (by category). Users can reorder cards within a category (drag-and-drop), and the order is saved in SQLite for persistence across app restarts.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "concurrently \"npm run build:renderer\" \"npm run electron\"",
+    "build:renderer": "webpack --mode development",
+    "electron": "wait-on dist/index.html && electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.7",
+    "bootswatch": "^5.3.7",
+    "concurrently": "^9.2.0",
+    "electron": "^37.3.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "babel-loader": "^10.0.0",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.4",
+    "style-loader": "^4.0.0",
+    "wait-on": "^8.0.4",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2"
+  }
+}
