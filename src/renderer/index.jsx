@@ -14,7 +14,7 @@ function App() {
 
     const [objects, setObjects] = useState([]);
     const [dragged, setDragged] = useState(null);
-    const [newObj, setNewObj] = useState({ name: '', data: '', category: 'P', taken: false });
+    const [newObj, setNewObj] = useState({ name: '', data: '', team: '', category: 'P', taken: false });
     const [page, setPage] = useState('P');
 
     const fetchObjects = async () => {
@@ -49,7 +49,7 @@ function App() {
         e.preventDefault();
         const catObjs = objects.filter(o => o.category === newObj.category);
         await window.api.addObject({ ...newObj, position: catObjs.length });
-        setNewObj({ name: '', data: '', category: 'P', taken: false });
+        setNewObj({ name: '', data: '', team: '', category: 'P', taken: false });
         fetchObjects();
     };
 
@@ -61,22 +61,26 @@ function App() {
 
     const [editId, setEditId] = useState(null);
     const [editValue, setEditValue] = useState('');
+    const [editTeam, setEditTeam] = useState('');
 
     const handleEdit = (obj) => {
         setEditId(obj.id);
         setEditValue(obj.data || '');
+        setEditTeam(obj.team || '');
     };
 
     const handleEditSave = async (obj) => {
-        await window.api.updateObject({ ...obj, data: editValue });
+        await window.api.updateObject({ ...obj, data: editValue, team: editTeam });
         setEditId(null);
         setEditValue('');
+        setEditTeam('');
         fetchObjects();
     };
 
     const handleEditCancel = () => {
         setEditId(null);
         setEditValue('');
+        setEditTeam('');
     };
 
     return (
@@ -108,12 +112,15 @@ function App() {
                                     onDragEnd={handleDragEnd}
                                     onDragOver={e => { e.preventDefault(); }}
                                     onDrop={() => handleDrop(page, idx)}
-                                    style={{ cursor: 'grab', background: (Math.floor(obj.position / 3) + 1) % 2 === 0 ? (!obj.taken ? '#0d0e50ff' : '#8383832d') : (!obj.taken ? '#290836ff' : '#8383832d') }}
+                                    style={{ cursor: 'grab', background: (Math.floor(obj.position / 10) + 1) % 2 === 0 ? (!obj.taken ? '#0d0e50ff' : '#8383832d') : (!obj.taken ? '#290836ff' : '#8383832d') }}
                                 >
                                     <div className="card-body py-1 px-2">
                                         <div className="d-flex align-items-center w-100">
                                             <div className="fw-bold" style={{ width: 200 }}>
-                                                {Math.floor(obj.position / 3) + 1} - {obj.name}
+                                                {Math.floor(obj.position / 10) + 1} - {obj.name}
+                                                <div className="text-muted small" style={{ fontSize: '0.85em' }}>
+                                                    {obj.team || <span>no team</span>}
+                                                </div>
                                             </div>
                                             {editId === obj.id ? (
                                                 <div className="d-flex align-items-center gap-2 flex-grow-1 ms-2">
@@ -124,6 +131,14 @@ function App() {
                                                         autoFocus
                                                         rows={3}
                                                         style={{ resize: 'vertical', minWidth: 0 }}
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        className="form-control form-control-sm"
+                                                        placeholder="Team"
+                                                        value={editTeam}
+                                                        onChange={e => setEditTeam(e.target.value)}
+                                                        style={{ minWidth: 80 }}
                                                     />
                                                     <button className="btn btn-success btn-sm" onClick={() => handleEditSave(obj)} title="Save">Save</button>
                                                     <button className="btn btn-secondary btn-sm" onClick={handleEditCancel} title="Cancel">Canc</button>
@@ -166,6 +181,13 @@ function App() {
                                     placeholder="Data (optional)"
                                     value={newObj.category === page ? newObj.data : ''}
                                     onChange={e => setNewObj({ ...newObj, data: e.target.value, category: page })}
+                                />
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Team (optional)"
+                                    value={newObj.category === page ? newObj.team : ''}
+                                    onChange={e => setNewObj({ ...newObj, team: e.target.value, category: page })}
                                 />
                                 <button type="submit" className="btn btn-primary">Add</button>
                             </form>

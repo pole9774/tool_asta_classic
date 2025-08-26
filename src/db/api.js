@@ -16,8 +16,8 @@ ipcMain.handle('get-objects', async () => {
 ipcMain.handle('add-object', async (event, obj) => {
   return new Promise((resolve, reject) => {
     db.run(
-      'INSERT INTO objects (category, name, data, position, taken) VALUES (?, ?, ?, ?, ?)',
-      [obj.category, obj.name, obj.data, obj.position, obj.taken ? 1 : 0],
+      'INSERT INTO objects (category, name, data, team, position, taken) VALUES (?, ?, ?, ?, ?, ?)',
+      [obj.category, obj.name, obj.data, obj.team, obj.position, obj.taken ? 1 : 0],
       function (err) {
         if (err) reject(err);
         else resolve({ id: this.lastID });
@@ -40,8 +40,8 @@ ipcMain.handle('update-object-position', async (event, { id, position }) => {
 ipcMain.handle('update-object', async (event, obj) => {
   return new Promise((resolve, reject) => {
     db.run(
-      'UPDATE objects SET name = ?, data = ?, taken = ? WHERE id = ?',
-      [obj.name, obj.data, obj.taken ? 1 : 0, obj.id],
+      'UPDATE objects SET name = ?, data = ?, team = ?, taken = ? WHERE id = ?',
+      [obj.name, obj.data, obj.team, obj.taken ? 1 : 0, obj.id],
       function (err) {
         if (err) reject(err);
         else resolve();

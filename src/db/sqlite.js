@@ -12,16 +12,18 @@ const init = () => {
     category TEXT NOT NULL CHECK(category IN ('P','D','C','A')),
     name TEXT NOT NULL,
     data TEXT,
+    team TEXT,
     position INTEGER NOT NULL,
     taken INTEGER NOT NULL DEFAULT 0
   )`);
   // Migration: add 'taken' column if it doesn't exist
-  db.get("PRAGMA table_info(objects)", (err, info) => {
-    db.all("PRAGMA table_info(objects)", (err, columns) => {
-      if (!columns.some(col => col.name === 'taken')) {
-        db.run("ALTER TABLE objects ADD COLUMN taken INTEGER NOT NULL DEFAULT 0");
-      }
-    });
+  db.all("PRAGMA table_info(objects)", (err, columns) => {
+    if (!columns.some(col => col.name === 'taken')) {
+      db.run("ALTER TABLE objects ADD COLUMN taken INTEGER NOT NULL DEFAULT 0");
+    }
+    if (!columns.some(col => col.name === 'team')) {
+      db.run("ALTER TABLE objects ADD COLUMN team TEXT");
+    }
   });
 };
 
