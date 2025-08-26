@@ -108,34 +108,38 @@ function App() {
                                     onDragEnd={handleDragEnd}
                                     onDragOver={e => { e.preventDefault(); }}
                                     onDrop={() => handleDrop(page, idx)}
-                                    style={{ cursor: 'grab', background: (Math.floor(obj.position / 3) + 1) % 2 === 0 ? (!obj.taken ? '#9f8c6dff' : '#8383832d') : (!obj.taken ? '#5a7c5cff' : '#8383832d') }}
+                                    style={{ cursor: 'grab', background: (Math.floor(obj.position / 3) + 1) % 2 === 0 ? (!obj.taken ? '#0d0e50ff' : '#8383832d') : (!obj.taken ? '#290836ff' : '#8383832d') }}
                                 >
                                     <div className="card-body py-1 px-2">
-                                        <div className="fw-bold">{Math.floor(obj.position / 3) + 1} - {obj.name}</div>
-                                        {editId === obj.id ? (
-                                            <div className="d-flex align-items-center gap-2 w-100">
-                                                <textarea
-                                                    className="form-control form-control-sm"
-                                                    value={editValue}
-                                                    onChange={e => setEditValue(e.target.value)}
-                                                    autoFocus
-                                                    rows={3}
-                                                    style={{ resize: 'vertical', minWidth: 0 }}
-                                                />
-                                                <button className="btn btn-success btn-sm" onClick={() => handleEditSave(obj)} title="Save">Save</button>
-                                                <button className="btn btn-secondary btn-sm" onClick={handleEditCancel} title="Cancel">Canc</button>
+                                        <div className="d-flex align-items-center w-100">
+                                            <div className="fw-bold" style={{ width: 200 }}>
+                                                {Math.floor(obj.position / 3) + 1} - {obj.name}
                                             </div>
-                                        ) : (
-                                            <div className="text-muted small d-flex align-items-center gap-2 w-100">
-                                                <div style={{ whiteSpace: 'pre-line', flex: 1 }}>
-                                                    {obj.data || <i>no data</i>}
+                                            {editId === obj.id ? (
+                                                <div className="d-flex align-items-center gap-2 flex-grow-1 ms-2">
+                                                    <textarea
+                                                        className="form-control form-control-sm"
+                                                        value={editValue}
+                                                        onChange={e => setEditValue(e.target.value)}
+                                                        autoFocus
+                                                        rows={3}
+                                                        style={{ resize: 'vertical', minWidth: 0 }}
+                                                    />
+                                                    <button className="btn btn-success btn-sm" onClick={() => handleEditSave(obj)} title="Save">Save</button>
+                                                    <button className="btn btn-secondary btn-sm" onClick={handleEditCancel} title="Cancel">Canc</button>
                                                 </div>
-                                                <button className="btn btn-sm btn-outline-info ms-2" onClick={() => handleEdit(obj)} title="Edit">Edit</button>
-                                                <button className={`btn btn-sm ${obj.taken ? 'btn-outline-primary' : 'btn-outline-secondary'}`} onClick={() => handleToggleTaken(obj)} title="Toggle taken">
-                                                    {obj.taken ? 'Canc' : 'Take'}
-                                                </button>
-                                            </div>
-                                        )}
+                                            ) : (
+                                                <div className="text-muted small d-flex align-items-center gap-2 flex-grow-1 ms-2">
+                                                    <div style={{ whiteSpace: 'pre-line', flex: 1 }}>
+                                                        {obj.data || <i>no data</i>}
+                                                    </div>
+                                                    <button className="btn btn-sm btn-outline-info ms-2" onClick={() => handleEdit(obj)} title="Edit">Edit</button>
+                                                    <button className={`btn btn-sm ${obj.taken ? 'btn-outline-primary' : 'btn-outline-secondary'}`} onClick={() => handleToggleTaken(obj)} title="Toggle taken">
+                                                        {obj.taken ? 'Canc' : 'Take'}
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             ))}
