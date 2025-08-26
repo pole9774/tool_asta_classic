@@ -33,7 +33,6 @@ function App() {
         if (!dragged || dragged.category !== category) return;
         // Reorder within category
         const catObjs = objects.filter(o => o.category === category);
-        const otherObjs = objects.filter(o => o.category !== category);
         const fromIdx = catObjs.findIndex(o => o.id === dragged.id);
         if (fromIdx === -1 || fromIdx === idx) return;
         const newCatObjs = [...catObjs];
@@ -131,14 +130,6 @@ function App() {
                                                         autoFocus
                                                         rows={3}
                                                         style={{ resize: 'vertical', minWidth: 0 }}
-                                                    />
-                                                    <input
-                                                        type="text"
-                                                        className="form-control form-control-sm"
-                                                        placeholder="Team"
-                                                        value={editTeam}
-                                                        onChange={e => setEditTeam(e.target.value)}
-                                                        style={{ minWidth: 80 }}
                                                     />
                                                     <button className="btn btn-success btn-sm" onClick={() => handleEditSave(obj)} title="Save">Save</button>
                                                     <button className="btn btn-secondary btn-sm" onClick={handleEditCancel} title="Cancel">Canc</button>

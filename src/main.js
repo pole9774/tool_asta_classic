@@ -14,6 +14,7 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
     },
+    icon: path.join(__dirname, '../assets/Soccer_icon.ico'),
   });
   win.loadFile(path.join(__dirname, '../dist/index.html'));
 }
