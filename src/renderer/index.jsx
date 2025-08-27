@@ -111,7 +111,7 @@ function App() {
                                     onDragEnd={handleDragEnd}
                                     onDragOver={e => { e.preventDefault(); }}
                                     onDrop={() => handleDrop(page, idx)}
-                                    style={{ cursor: 'grab', background: (Math.floor(obj.position / 10) + 1) % 2 === 0 ? (!obj.taken ? '#0d0e50ff' : '#8383832d') : (!obj.taken ? '#290836ff' : '#8383832d') }}
+                                    style={{ cursor: 'grab', background: (Math.floor(obj.position / 10) + 1) % 2 === 0 ? (!obj.taken ? '#0c0c3aff' : '#8383832d') : (!obj.taken ? '#290836ff' : '#8383832d') }}
                                 >
                                     <div className="card-body py-1 px-2">
                                         <div className="d-flex align-items-center w-100">
@@ -166,13 +166,13 @@ function App() {
                                     onChange={e => setNewObj({ ...newObj, name: e.target.value, category: page })}
                                     required
                                 />
-                                <input
+                                {/*<input
                                     type="text"
                                     className="form-control"
                                     placeholder="Data (optional)"
                                     value={newObj.category === page ? newObj.data : ''}
                                     onChange={e => setNewObj({ ...newObj, data: e.target.value, category: page })}
-                                />
+                                />*/}
                                 <input
                                     type="text"
                                     className="form-control"
