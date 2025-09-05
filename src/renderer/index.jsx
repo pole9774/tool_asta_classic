@@ -111,13 +111,13 @@ function App() {
                                     onDragEnd={handleDragEnd}
                                     onDragOver={e => { e.preventDefault(); }}
                                     onDrop={() => handleDrop(page, idx)}
-                                    style={{ cursor: 'grab', background: (Math.floor(obj.position / 10) + 1) % 2 === 0 ? (!obj.taken ? '#0c0c3aff' : '#8383832d') : (!obj.taken ? '#290836ff' : '#8383832d') }}
+                                    style={{ cursor: 'grab', background: (Math.floor(obj.position / 10) + 1) % 2 === 0 ? (!obj.taken ? '#01012fff' : '#30303083') : (!obj.taken ? '#1d0029ff' : '#30303083') }}
                                 >
                                     <div className="card-body py-1 px-2">
                                         <div className="d-flex align-items-center w-100">
-                                            <div style={{ width: 200 }}>
+                                            <div style={{ width: 200, color: obj.taken ? "grey" : "inherit", }}>
                                                 {/*{Math.floor(obj.position / 10) + 1} - {obj.name}*/}
-                                                 <span className="text-muted small" style={{ fontSize: '0.85em' }}>{obj.position + 1}.</span> <span className="fw-bold">{obj.name}</span>
+                                                 <span className="text-muted small" style={{ fontSize: '0.85em' }}>{obj.position + 1}.</span> <span className="fw-bold" style={{ textDecoration: obj.taken ? "line-through" : "none", }}>{obj.name}</span>
                                                 <div className="text-muted small" style={{ fontSize: '0.85em' }}>
                                                     {obj.team || <span>no team</span>}
                                                 </div>
