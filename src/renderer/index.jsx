@@ -116,7 +116,8 @@ function App() {
                                     <div className="card-body py-1 px-2">
                                         <div className="d-flex align-items-center w-100">
                                             <div className="fw-bold" style={{ width: 200 }}>
-                                                {Math.floor(obj.position / 10) + 1} - {obj.name}
+                                                {/*{Math.floor(obj.position / 10) + 1} - {obj.name}*/}
+                                                {obj.position + 1} - {obj.name}
                                                 <div className="text-muted small" style={{ fontSize: '0.85em' }}>
                                                     {obj.team || <span>no team</span>}
                                                 </div>
